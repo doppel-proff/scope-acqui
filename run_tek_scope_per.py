@@ -4,6 +4,7 @@
 
 import os
 import test_connexion as tc
+import time
 import tek_aqui as ta
 from utils import graph_utils as gu
 from utils import files_utils as fu
@@ -36,25 +37,29 @@ Data_name = "rec.csv"
 # === VAR ===
 
 # === RUN ===
-rm = tc.open_rm()
-try :
-    scope = tc.scope_init(rm)
+t = time.time()
+while time.time() - t < 60 :
+    rm = tc.open_rm()
+    try :
+        scope = tc.scope_init(rm)
 
-    ta.encod(scope)
+        ta.encod(scope)
 
-    ta.acqui_conf(scope,On_channels,Acq_time_range,Acq_Y_range,Acq_sample_rate)
+        ta.acqui_conf(scope,On_channels,Acq_time_range,Acq_Y_range,Acq_sample_rate)
 
-    ta.trig_conf(scope,Trig_channel,Trig_level)
+        ta.trig_conf(scope,Trig_channel,Trig_level)
 
-    Lx,Ly = ta.wavefrom_acqui(scope,Acq_channel,Acq_timeout)
+        Lx,Ly = ta.wavefrom_acqui(scope,Acq_channel,Acq_timeout)
     
-    M=[[Lx,Ly]]
+        Data_name_t = str(time.time() - t)+"_"+Data_name
+        fu.save_tuple_csv(Lx,Ly,Path,Data_Repo,Data_name_t)
 
-finally :
-    tc.close(scope,rm)
+    finally :
+        tc.close(scope,rm)
 
-gu.multigraph(M,Path,Graph_Repo,Fig_name,Y_axe,X_axe,Y_min,Y_max,X_min,X_max)
-print(f"graphs saved to {Path}/{Graph_Repo}")
+    time.sleep(1)
+    t=t+1
+    print("... ... ...")
 
-fu.save_tuple_csv(Lx,Ly,Path,Data_Repo,Data_name)
+print("Done.")
 print(f"data saved to {Path}/{Data_Repo}")

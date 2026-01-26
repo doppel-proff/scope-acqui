@@ -26,7 +26,7 @@ def acqui_conf(scope,channels,time_range,Y_range,sample_rate):
             scope.write(f'SEL:CH{i} OFF')
             print(f'CH{i} OFF') #-- ok
     scope.write(f'HOR:SCA {time_range}')
-    print(f"set record length to {time_range} s")
+    print(f"set record length to {time_range} s / div")
     if sample_rate:
         scope.write(f'HOR:SAM {sample_rate}')
         print(f"set sample rate to {sample_rate} Hz")
@@ -56,7 +56,7 @@ def wavefrom_acqui(scope, channel, timeout):
     st_time=time.time()
     while time.time() - st_time < timeout:
         state = scope.query('ACQ:STATE?').strip()
-        print(f"state :{state}")
+        #print(f"state :{state}")
         if state == '0':  # Acquisition stopped
             print("triggered")
             break
@@ -65,8 +65,8 @@ def wavefrom_acqui(scope, channel, timeout):
         #tc.close(scope)
         raise TimeoutError("Acquisition timeout")
     preamble=scope.query('WFMP?').split(',') #signal meta data
-    print(preamble)
-    print(len(preamble))
+    #print(preamble)
+    #print(len(preamble))
     y_scale = 156.25e-6
     y_offset = 0
     y_position = 0
