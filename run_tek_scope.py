@@ -36,18 +36,22 @@ Data_name = "rec.csv"
 # === VAR ===
 
 # === RUN ===
-scope=tc.scope_init()
-print("Connected to " + str(scope))
+rm = tc.open_rm()
+try :
+    scope = tc.scope_init(rm)
 
-ta.encod(scope)
+    ta.encod(scope)
 
-ta.acqui_conf(scope,On_channels,Acq_time_range,Acq_Y_range,Acq_sample_rate)
+    ta.acqui_conf(scope,On_channels,Acq_time_range,Acq_Y_range,Acq_sample_rate)
 
-ta.trig_conf(scope,Trig_channel,Trig_level)
+    ta.trig_conf(scope,Trig_channel,Trig_level)
 
-Lx,Ly = ta.wavefrom_acqui(scope,Acq_channel,Acq_timeout)
-M=[[Lx,Ly]]
-tc.close(scope)
+    Lx,Ly = ta.wavefrom_acqui(scope,Acq_channel,Acq_timeout)
+    
+    M=[[Lx,Ly]]
+
+finally :
+    tc.close(scope,rm)
 
 gu.multigraph(M,Path,Graph_Repo,Fig_name,Y_axe,X_axe,Y_min,Y_max,X_min,X_max)
 print(f"graphs saved to {Path}/{Graph_Repo}")

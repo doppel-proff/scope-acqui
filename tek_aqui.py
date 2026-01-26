@@ -32,7 +32,7 @@ def acqui_conf(scope,channels,time_range,Y_range,sample_rate):
         print(f"set sample rate to {sample_rate} Hz")
     scope.write('ACQ:MODE SAM')
     print("set to sample mod")
-    scope.write('ACQ:STPA SEQ')
+    scope.write('ACQ:STPOA SEQ')
     print("set to single") # -- ok
 
 #Sets up trigger --ok.
@@ -56,6 +56,7 @@ def wavefrom_acqui(scope, channel, timeout):
     st_time=time.time()
     while time.time() - st_time < timeout:
         state = scope.query('ACQ:STATE?').strip()
+        print(f"state :{state}")
         if state == '0':  # Acquisition stopped
             print("triggered")
             break
