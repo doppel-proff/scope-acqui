@@ -62,7 +62,7 @@ def wavefrom_acqui(scope, channel, timeout):
             break
         time.sleep(0.1)
     else:
-        tc.close(scope)
+        #tc.close(scope)
         raise TimeoutError("Acquisition timeout")
     preamble=scope.query('WFMP?').split(',') #signal meta data
     print(preamble)

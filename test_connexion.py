@@ -16,6 +16,10 @@ def scope_init(rm):
         scope.timeout = 2e4 #10s timeout
         scope.write('*RST') #reset
         scope.write('*CLS') #clear status
+        #scope.timeout = 2e4
+        #scope.write('*RST')
+        #scope.query('*OPC?')
+        #scope.write('*CLS')
 
         return(scope)
     else : 
@@ -31,10 +35,8 @@ def close(scope,rm):
             rm.close()
     print("closed : " + str(scope))
 
-"""
 rm = open_rm()
 try :
     scope = scope_init(rm)
 finally :
     close(scope,rm)
-"""
