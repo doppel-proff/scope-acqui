@@ -56,7 +56,14 @@ def save_tuple_csv(Lx,Ly,Path,Repo,File_name):
     os.makedirs(os.path.join(Path,Repo), exist_ok = True)
     File_Path = os.path.join(Path,Repo,File_name)
     Data = np.column_stack((Lx,Ly))
-    np.savetxt(File_Path, Data, delimiter=";", fmt="%9f") #enrgistrés avec 9 decimals après la virgule
+    np.savetxt(File_Path, Data, delimiter=";", fmt="%6f") #enrgistrés avec 6 decimals après la virgule
+
+def save_mult_csv(Lx,My,Path,Repo,File_name):
+    os.makedirs(os.path.join(Path,Repo), exist_ok = True)
+    File_Path = os.path.join(Path,Repo,File_name)
+    Data = np.column_stack(([Lx]+My))
+    np.savetxt(File_Path, Data, delimiter=";", fmt="%6f") #enrgistrés avec 6 decimals après la virgule
+
 
 #Sauvegarde un vecteur au format csv
 #def save_csv_vect(L, Path, Folder_name, File_name):

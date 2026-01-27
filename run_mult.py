@@ -54,3 +54,5 @@ finally :
 print(len(Lx))
 for i in range(len(Acq_channel)):
     print(len(My[i]))
+
+fu.save_mult_csv(Lx,My,Path,Data_Repo,Data_name)
