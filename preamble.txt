@@ -1,1 +1,43 @@
-['2;16;BIN;RI;MSB;"Ch1', ' DC coupling', ' 1V/div', ' 1ms/div', ' 250000 points', ' Sample mode";2500;Y;"s";40.0E-9;7.8399999998510E-9;125000;"V";156.2500E-6;0.0E+0;0.0E+0;TIME;ANALOG;0.0E+0;0.0E+0;INT;0.0E+0\n']
+(venv) PS C:\Users\GTF labo 1\dev\scope-acqui> python .\run_mult.py
+Found intruments: ('TCPIP0::192.168.1.100::inst0::INSTR',)
+closed : TCPIPInstrument at TCPIP0::192.168.1.100::inst0::INSTR
+Found intruments: ('TCPIP0::192.168.1.100::inst0::INSTR',)
+Set encoding to : TCPIPInstrument at TCPIP0::192.168.1.100::inst0::INSTR
+CH1 ON
+CH2 ON
+CH3 ON
+CH4 ON
+set record length to 0.005 s / div
+set to sample mod
+set to single
+set trigger
+triggered
+Nb_pt : 250000
+closed : TCPIPInstrument at TCPIP0::192.168.1.100::inst0::INSTR
+250000
+250000
+250000
+250000
+250000
+Set encoding to : TCPIPInstrument at TCPIP0::192.168.1.100::inst0::INSTR
+CH1 ON
+CH2 ON
+CH3 ON
+CH4 ON
+set record length to 0.005 s / div
+set to sample mod
+set to single
+set trigger
+triggered
+['2;16;BIN;RI;MSB;"Ch1', ' DC coupling', ' 1V/div', ' 4ms/div', ' 250000 points', ' Sample mode";250000;Y;"s";160.00E-9;6.3999999989755E-9;125000;"V";156.2500E-6;0.0E+0;0.0E+0;TIME;ANALOG;0.0E+0;0.0E+0;INT;0.0E+0\n']
+['2;16;BIN;RI;MSB;"Ch2', ' DC coupling', ' 1V/div', ' 4ms/div', ' 250000 points', ' Sample mode";250000;Y;"s";160.00E-9;6.3999999989755E-9;125000;"V";156.2500E-6;0.0E+0;0.0E+0;TIME;ANALOG;0.0E+0;0.0E+0;INT;0.0E+0\n']
+['2;16;BIN;RI;MSB;"Ch3', ' DC coupling', ' 1A/div', ' 4ms/div', ' 250000 points', ' Sample mode";250000;Y;"s";160.00E-9;6.3999999989755E-9;125000;"A";156.2500E-6;0.0E+0;0.0E+0;TIME;ANALOG;0.0E+0;0.0E+0;INT;0.0E+0\n']
+['2;16;BIN;RI;MSB;"Ch4', ' DC coupling', ' 1A/div', ' 4ms/div', ' 250000 points', ' Sample mode";250000;Y;"s";160.00E-9;6.3999999989755E-9;125000;"A";156.2500E-6;0.0E+0;0.0E+0;TIME;ANALOG;0.0E+0;0.0E+0;INT;0.0E+0\n']
+Nb_pt : 250000
+closed : TCPIPInstrument at TCPIP0::192.168.1.100::inst0::INSTR
+250000
+250000
+250000
+250000
+250000
+(venv) PS C:\Users\GTF labo 1\dev\scope-acqui>
