@@ -10,7 +10,7 @@ from utils import files_utils as fu
 
 # === VAR ===
 On_channels=[1,2,3,4]
-Acq_time_range=25e-5
+Acq_time_range=25e-6
 Acq_Y_range=1
 Acq_sample_rate= None
 Trig_channel=1
