@@ -15,7 +15,7 @@ Acq_Y_range=1
 Acq_sample_rate= None
 Trig_channel=1
 Trig_level=0
-Acq_channel=[1,2,3,4]
+Acq_channel=[2,3,4]
 Acq_timeout=10
 
 # = GRAPH =
