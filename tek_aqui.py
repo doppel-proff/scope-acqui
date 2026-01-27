@@ -117,7 +117,7 @@ def wavefrom_acqui_multich(scope, channels, timeout):
         x_scale = 160e-9
         x_offset = 6.4e-9
         scope.write('DAT:STAR 1')
-        scope.write(('DAT:STOP 250000'))
+        scope.write(('DAT:STOP 2500'))
         raw_data = scope.query_binary_values('CURV?', datatype='h', is_big_endian=True )
         #raw_data = scope.query_ascii_values('CURV?') # -- Ok.
         Ly = ((np.array(raw_data) - y_offset) * y_scale) + y_position
