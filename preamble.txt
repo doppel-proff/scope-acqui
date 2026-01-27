@@ -1,0 +1,1 @@
+['2;16;BIN;RI;MSB;"Ch1', ' DC coupling', ' 1V/div', ' 1ms/div', ' 250000 points', ' Sample mode";2500;Y;"s";40.0E-9;7.8399999998510E-9;125000;"V";156.2500E-6;0.0E+0;0.0E+0;TIME;ANALOG;0.0E+0;0.0E+0;INT;0.0E+0\n']

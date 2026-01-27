@@ -82,3 +82,47 @@ def wavefrom_acqui(scope, channel, timeout):
     print(f"Nb_pt : {Nb_pt}")
     Lx = np.arange(Nb_pt) * x_scale + x_offset
     return(Lx,Ly)
+
+#Channel is an array containing measuerd channels.
+def wavefrom_acqui_multich(scope, channels, timeout):
+    #scope.write('ACQ:STOPA SEQ')
+    scope.write('ACQ:STATE RUN')
+    scope.query("*OPC?")
+    #scope.write('TRIG:FORC')
+    time.sleep(0.3)
+    scope.write('ACQ:STOPA SEQ')
+
+    #trigger timeout  --ok.
+    st_time=time.time()
+    while time.time() - st_time < timeout:
+        state = scope.query('ACQ:STATE?').strip()
+        #print(f"state :{state}")
+        if state == '0':  # Acquisition stopped
+            print("triggered")
+            break
+        time.sleep(0.1)
+    else:
+        #tc.close(scope)
+        raise TimeoutError("Acquisition timeout")
+    My=[]
+    for i in channels :
+        scope.write(f'DAT:SOU CH{i}')
+        preamble=scope.query('WFMP?').split(',') #signal meta data
+        #print(preamble)
+        #print(len(preamble))
+        y_scale = 156.25e-6
+        y_offset = 0
+        y_position = 0
+
+        x_scale = 40e-9
+        x_offset = 22.4e-9
+        scope.write('DAT:STAR 1')
+        scope.write(('DAT:STOP 250000'))
+        raw_data = scope.query_binary_values('CURV?', datatype='h', is_big_endian=True )
+        #raw_data = scope.query_ascii_values('CURV?') # -- Ok.
+        Ly = ((np.array(raw_data) - y_offset) * y_scale) + y_position
+        My.appen(Ly)
+    Nb_pt = len(raw_data)
+    print(f"Nb_pt : {Nb_pt}")
+    Lx = np.arange(Nb_pt) * x_scale + x_offset
+    return(Lx,My)
