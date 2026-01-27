@@ -5,6 +5,7 @@
 import os
 import test_connexion as tc
 import tek_aqui as ta
+import time
 from utils import graph_utils as gu
 from utils import files_utils as fu
 
@@ -50,7 +51,7 @@ while time.time() - t < 3600*24 :
 
         Lx,My = ta.wavefrom_acqui_multich(scope,Acq_channel,Acq_timeout)
 
-        Data_name_t = (str(time.time()) - t)+"_"+Data_name
+        Data_name_t = (str(time.time() - t))+"_"+Data_name
         fu.save_mult_pqt(Lx,My,Path,Data_Repo,Data_name_t)
     
     finally :
