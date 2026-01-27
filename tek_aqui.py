@@ -108,7 +108,7 @@ def wavefrom_acqui_multich(scope, channels, timeout):
     for i in channels :
         scope.write(f'DAT:SOU CH{i}')
         preamble=scope.query('WFMP?').split(',') #signal meta data
-        #print(preamble)
+        print(preamble)
         #print(len(preamble))
         y_scale = 156.25e-6
         y_offset = 0
