@@ -36,29 +36,24 @@ Data_name = "rec.csv"
 # === VAR ===
 
 # === RUN ===
-t = time.time()
-while time.time() - t < 3600*24 :
-    rm = tc.open_rm()
-    try :
-        scope = tc.scope_init(rm)
+rm = tc.open_rm()
+try :
+    scope = tc.scope_init(rm)
 
-        ta.encod(scope)
+    ta.encod(scope)
 
-        ta.acqui_conf(scope,On_channels,Acq_time_range,Acq_Y_range,Acq_sample_rate)
+    ta.acqui_conf(scope,On_channels,Acq_time_range,Acq_Y_range,Acq_sample_rate)
 
-        ta.trig_conf(scope,Trig_channel,Trig_level)
+    ta.trig_conf(scope,Trig_channel,Trig_level)
 
-        Lx,My = ta.wavefrom_acqui_multich(scope,Acq_channel,Acq_timeout)
-
-        Data_name_t = (str(time.time()) - t)+"_"+Data_name
-        fu.save_mult_pqt(Lx,My,Path,Data_Repo,Data_name_t)
+    Lx,My = ta.wavefrom_acqui_multich(scope,Acq_channel,Acq_timeout)
     
-    finally :
-        tc.close(scope,rm)
+finally :
+    tc.close(scope,rm)
 
-    time.sleep(20)
-    print("... ... ...")
+print(len(Lx))
+for i in range(len(Acq_channel)):
+    print(len(My[i]))
 
-print("Done.")
-print(f"data saved to {Path}/{Data_Repo}")
-#fu.pqt_to_csv(Path,Data_Repo,Data_name)
+fu.save_mult_pqt(Lx,My,Path,Data_Repo,Data_name)
+fu.pqt_to_csv(Path,Data_Repo,Data_name)
