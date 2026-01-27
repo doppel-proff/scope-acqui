@@ -8,6 +8,7 @@ Created on Mon Oct 14 13:20:34 2024
 import numpy as np
 import os
 import shutil
+import pandas as pd
 
 #retourne sous forme de matrice les valeurs contenues dans un fichier .csv
 def open_csv(File):
@@ -63,6 +64,34 @@ def save_mult_csv(Lx,My,Path,Repo,File_name):
     File_Path = os.path.join(Path,Repo,File_name)
     Data = np.column_stack(([Lx]+My))
     np.savetxt(File_Path, Data, delimiter=";", fmt="%6f") #enrgistrés avec 6 decimals après la virgule
+
+def save_mult_pqt(Lx, My, Path, Repo, File_name):
+    os.makedirs(os.path.join(Path,Repo), exist_ok = True)
+    File_Path = os.path.join(Path,Repo,File_name)
+    Data = {"Lx" : Lx}
+    for i, My_i in enumerate(My) : 
+        Data[f"My{i}"] = My_i 
+    
+    df =  pd.DataFrame(Data)
+
+    if not File_Path.endswith(".parquet"):
+        File_Path = File_Path + ".parquet"
+        print("File path must end in .parquet")
+    df.to_parquet(File_Path, index=False, engine="pyarrow", compression = "snappy")
+
+def pqt_to_csv(Path, Repo, File_name_pqt, File_name_csv=None):
+    if not File_name_pqt.endswith(".parquet"):
+        File_name_pqt = File_name_pqt + ".parquet"
+
+    pqt_path = os.path.join(Path, Repo, File_name_pqt)
+
+    df = pd.read_parquet(pqt_path, engine="pyarrow")
+
+    if File_name_csv is None:
+        File_name_csv = File_name_pqt.replace(".parquet", ".csv")
+    csv_path = os.path.join(Path, Repo, File_name_csv)
+    df.to_csv(csv_path, sep=";", index=False)
+    return csv_path
 
 
 #Sauvegarde un vecteur au format csv
