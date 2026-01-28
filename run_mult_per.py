@@ -8,6 +8,7 @@ import tek_aqui as ta
 import time
 #from utils import graph_utils as gu
 from utils import files_utils as fu
+from utils import list_utils as lu
 
 # === VAR ===
 On_channels=[1,2,3,4]
@@ -53,6 +54,7 @@ def run(Run_time):
             ta.trig_conf(scope,Trig_channel,Trig_level)
 
             Lx,My = ta.wavefrom_acqui_multich(scope,Acq_channel,Acq_timeout)
+            Lx=lu.scale(Lx,1e3)
 
             Data_name_t = (str(time.time() - t))+"_"+Data_name
             fu.save_mult_pqt(Lx,My,Path,Data_Repo,Data_name_t)
