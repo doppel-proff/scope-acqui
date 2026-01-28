@@ -19,6 +19,8 @@ Trig_level=0
 Acq_channel=[2,3,4]
 Acq_timeout=10
 
+Run_time = 3600*24 
+
 # = GRAPH =
 Path = os.getcwd()
 Graph_Repo = "graph_oscillo"
@@ -36,33 +38,44 @@ Data_name = "rec.parquet"
 
 # === VAR ===
 
-# === RUN ===
-t = time.time()
-rm = tc.open_rm()
-while time.time() - t < 3600*24 :
-    try :
-        scope = tc.scope_init(rm)
+# === FUNC ===
+def run(Run_time):
+    t = time.time()
+    rm = tc.open_rm()
+    while time.time() - t < Run_time :
+        try :
+            scope = tc.scope_init(rm)
 
-        ta.encod(scope)
+            ta.encod(scope)
 
-        ta.acqui_conf(scope,On_channels,Acq_time_range,Acq_Y_range,Acq_sample_rate)
+            ta.acqui_conf(scope,On_channels,Acq_time_range,Acq_Y_range,Acq_sample_rate)
 
-        ta.trig_conf(scope,Trig_channel,Trig_level)
+            ta.trig_conf(scope,Trig_channel,Trig_level)
 
-        Lx,My = ta.wavefrom_acqui_multich(scope,Acq_channel,Acq_timeout)
+            Lx,My = ta.wavefrom_acqui_multich(scope,Acq_channel,Acq_timeout)
 
-        Data_name_t = (str(time.time() - t))+"_"+Data_name
-        fu.save_mult_pqt(Lx,My,Path,Data_Repo,Data_name_t)
+            Data_name_t = (str(time.time() - t))+"_"+Data_name
+            fu.save_mult_pqt(Lx,My,Path,Data_Repo,Data_name_t)
     
-    #finally :
-        #tc.close(scope,rm)
 
-    finally :
-        print("... ... ...")
-        time.sleep(20)
+        finally :
+            print("... ... ...")
+            time.sleep(20)
 
-tc.close(scope,rm)
+    tc.close(scope,rm)
 
-print("Done.")
-print(f"data saved to {Path}/{Data_Repo}")
-#fu.pqt_to_csv(Path,Data_Repo,Data_name)
+    print("Done.")
+    print(f"data saved to {Path}/{Data_Repo}")
+
+    return(True)
+
+# === RUN ===
+Ni_err = 0
+while True :
+    try:
+        run(Run_time)
+        Ni_err = 0
+    except Exception as e :
+        Ni_err += 1
+        print(f"Ni_err : {Ni_err}")
+        time.sleep(10)
