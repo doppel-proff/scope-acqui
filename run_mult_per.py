@@ -57,8 +57,9 @@ while time.time() - t < 3600*24 :
     #finally :
         #tc.close(scope,rm)
 
-    print("... ... ...")
-    time.sleep(20)
+    finally :
+        print("... ... ...")
+        time.sleep(20)
 
 tc.close(scope,rm)
 
