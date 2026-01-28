@@ -5,7 +5,8 @@
 import os
 import test_connexion as tc
 import tek_aqui as ta
-from utils import graph_utils as gu
+import time
+#from utils import graph_utils as gu
 from utils import files_utils as fu
 
 # === VAR ===
@@ -31,29 +32,36 @@ X_max = None
 
 # = DATA =
 Data_Repo = "data"
-Data_name = "rec.csv"
+Data_name = "rec.parquet"
 
 # === VAR ===
 
 # === RUN ===
+t = time.time()
 rm = tc.open_rm()
-try :
-    scope = tc.scope_init(rm)
+while time.time() - t < 3600*24 :
+    try :
+        scope = tc.scope_init(rm)
 
-    ta.encod(scope)
+        ta.encod(scope)
 
-    ta.acqui_conf(scope,On_channels,Acq_time_range,Acq_Y_range,Acq_sample_rate)
+        ta.acqui_conf(scope,On_channels,Acq_time_range,Acq_Y_range,Acq_sample_rate)
 
-    ta.trig_conf(scope,Trig_channel,Trig_level)
+        ta.trig_conf(scope,Trig_channel,Trig_level)
 
-    Lx,My = ta.wavefrom_acqui_multich(scope,Acq_channel,Acq_timeout)
+        Lx,My = ta.wavefrom_acqui_multich(scope,Acq_channel,Acq_timeout)
+
+        Data_name_t = (str(time.time() - t))+"_"+Data_name
+        fu.save_mult_pqt(Lx,My,Path,Data_Repo,Data_name_t)
     
-finally :
-    tc.close(scope,rm)
+    #finally :
+        #tc.close(scope,rm)
 
-print(len(Lx))
-for i in range(len(Acq_channel)):
-    print(len(My[i]))
+    print("... ... ...")
+    time.sleep(20)
 
-fu.save_mult_pqt(Lx,My,Path,Data_Repo,Data_name)
-fu.pqt_to_csv(Path,Data_Repo,Data_name)
+tc.close(scope,rm)
+
+print("Done.")
+print(f"data saved to {Path}/{Data_Repo}")
+#fu.pqt_to_csv(Path,Data_Repo,Data_name)
