@@ -35,7 +35,7 @@ X_max = None
 
 # = DATA =
 Data_Repo = "data"
-Data_name = "rec.parquet"
+Data_name = "GSEM_run1.parquet"
 
 # === VAR ===
 
@@ -56,7 +56,8 @@ def run(Run_time):
             Lx,My = ta.wavefrom_acqui_multich(scope,Acq_channel,Acq_timeout)
             Lx=lu.scale(Lx,1e3)
 
-            Data_name_t = (str(time.time() - t))+"_"+Data_name
+            Time_stamp = time.ctime(time.time())
+            Data_name_t = (str(Time_stamp))+"_"+Data_name
             fu.save_mult_pqt(Lx,My,Path,Data_Repo,Data_name_t)
     
 
