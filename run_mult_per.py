@@ -58,7 +58,7 @@ def run(Run_time):
             Lx=lu.scale(Lx,1e3)
 
             Time_stamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-            Data_name_t = f"{timestamp}_GSEM_run1.parquet"
+            Data_name_t = f"{Time_stamp}_GSEM_run1.parquet"
             fu.save_mult_pqt(Lx,My,Path,Data_Repo,Data_name_t)
     
 
