@@ -1,0 +1,46 @@
+Ni_err : 3
+Traceback (most recent call last):
+  File "C:\Users\GTF labo 1\dev\scope-acqui\run_mult_per.py", line 79, in <module>
+    run(Run_time)
+    ~~~^^^^^^^^^^
+  File "C:\Users\GTF labo 1\dev\scope-acqui\run_mult_per.py", line 61, in run
+    fu.save_mult_pqt(Lx,My,Path,Data_Repo,Data_name_t)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\GTF labo 1\dev\scope-acqui\utils\files_utils.py", line 80, in save_mult_pqt
+    df.to_parquet(File_Path, index=False, engine="pyarrow", compression = "snappy")        
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        
+  File "C:\Users\GTF labo 1\dev\scope-acqui\venv\Lib\site-packages\pandas\core\frame.py", line 3135, in to_parquet
+    return to_parquet(
+        self,
+    ...<7 lines>...
+        **kwargs,
+    )
+  File "C:\Users\GTF labo 1\dev\scope-acqui\venv\Lib\site-packages\pandas\io\parquet.py", line 490, in to_parquet
+    impl.write(
+    ~~~~~~~~~~^
+        df,
+        ^^^
+    ...<6 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "C:\Users\GTF labo 1\dev\scope-acqui\venv\Lib\site-packages\pandas\io\parquet.py", line 199, in write
+    path_or_handle, handles, filesystem = _get_path_or_handle(
+                                          ~~~~~~~~~~~~~~~~~~~^
+        path,
+        ^^^^^
+    ...<3 lines>...
+        is_dir=partition_cols is not None,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\GTF labo 1\dev\scope-acqui\venv\Lib\site-packages\pandas\io\parquet.py", line 141, in _get_path_or_handle
+    handles = get_handle(
+        path_or_handle, mode, is_text=False, storage_options=storage_options
+    )
+  File "C:\Users\GTF labo 1\dev\scope-acqui\venv\Lib\site-packages\pandas\io\common.py", line 935, in get_handle
+    handle = open(handle, ioargs.mode)
+OSError: [Errno 22] Invalid argument: 'C:\\Users\\GTF labo 1\\dev\\scope-acqui\\data\\Thu Jan 29 14:15:35 2026_GSEM_run1.parquet'
+
+During handling of the above exception, another exception occurred:
