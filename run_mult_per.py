@@ -21,7 +21,7 @@ Trig_level=0
 Acq_channel=[2,3,4]
 Acq_timeout=10
 
-Run_time = 3600*24 
+Run_time = 3600*24*7 
 
 # = GRAPH =
 Path = os.getcwd()
