@@ -1,3 +1,6 @@
+.vscode/
+venv/
+__pycache__/
 data/
 data_TR26_0011/
 data_TR26_0011_run2/
