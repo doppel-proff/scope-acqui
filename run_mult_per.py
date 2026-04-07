@@ -6,10 +6,11 @@ import os
 import test_connexion as tc
 import tek_aqui as ta
 import time
-#from utils import graph_utils as gu
+import pandas as pd 
+from datetime import datetime
+
 from utils import files_utils as fu
 from utils import list_utils as lu
-from datetime import datetime
 
 # === VAR ===
 On_channels=[1,2,3,4]
@@ -22,6 +23,8 @@ Acq_channel=[2,3,4]
 Acq_timeout=10
 
 Run_time = 3600*24*7 
+
+start_time = time.time()
 
 # = GRAPH =
 Path = os.getcwd()
@@ -38,6 +41,12 @@ X_max = None
 Data_Repo = "data_TR26_0011_run2"
 Data_name = "TR26_0011_run2.parquet"
 
+# = Error =
+cols = ["time", "err_message"]
+rows = []
+error_log_repo = os.path.join(Path, Data_Repo+"error_log")
+os.makedirs(error_log_repo,exist_ok=True)
+errr_log_file_path = os.path.join(error_log_repo, "error_log.csv")
 # === VAR ===
 
 # === FUNC ===
@@ -54,12 +63,11 @@ def run(Run_time):
 
             ta.trig_conf(scope,Trig_channel,Trig_level)
 
-            Lx,My = ta.wavefrom_acqui_multich(scope,Acq_channel,Acq_timeout)
-            Lx=lu.scale(Lx,1e3)
+            Lx, My, L_Ts = ta.wavefrom_acqui_multich(scope,Acq_channel,start_time,Acq_timeout)
 
             Time_stamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-            Data_name_t = f"{Time_stamp}_GSEM_run1.parquet"
-            fu.save_mult_pqt(Lx,My,Path,Data_Repo,Data_name_t)
+            Data_name_t = f"{Data_name}_{Time_stamp}.parquet"
+            fu.save_mult_pqt(Lx,My,L_Ts,Path,Data_Repo,Data_name_t)
     
 
         finally :
@@ -81,5 +89,8 @@ while True :
         Ni_err = 0
     except Exception as e :
         Ni_err += 1
+        rows.append([datetime.now().strftime("%Y-%m-%d_%H-%M-%S"), e])
+        df_error = pd.DataFrame(data=rows, columns=cols)
+        df_error.to_csv(errr_log_file_path)
         print(f"Ni_err : {Ni_err}")
         time.sleep(10)

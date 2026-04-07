@@ -32,7 +32,7 @@ def acqui_conf(scope,channels,time_range,Y_range,sample_rate):
         print(f"set sample rate to {sample_rate} Hz")
     scope.write('ACQ:MODE SAM')
     print("set to sample mod")
-    scope.write('ACQ:STPOA SEQ')
+    scope.write('ACQ:STOPA SEQ')
     print("set to single") # -- ok
 
 #Sets up trigger --ok.
@@ -84,7 +84,7 @@ def wavefrom_acqui(scope, channel, timeout):
     return(Lx,Ly)
 
 #Channel is an array containing measuerd channels.
-def wavefrom_acqui_multich(scope, channels, timeout):
+def wavefrom_acqui_multich(scope, channels, start_time,timeout):
     #scope.write('ACQ:STOPA SEQ')
     scope.write('ACQ:STATE RUN')
     scope.query("*OPC?")
@@ -125,4 +125,5 @@ def wavefrom_acqui_multich(scope, channels, timeout):
     Nb_pt = len(raw_data)
     print(f"Nb_pt : {Nb_pt}")
     Lx = np.arange(Nb_pt) * x_scale + x_offset
-    return(Lx,My)
+    L_Ts = np.ones(Nb_pt) * (time.time() - start_time)
+    return Lx, My, L_Ts

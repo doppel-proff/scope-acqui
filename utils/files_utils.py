@@ -65,13 +65,13 @@ def save_mult_csv(Lx,My,Path,Repo,File_name):
     Data = np.column_stack(([Lx]+My))
     np.savetxt(File_Path, Data, delimiter=";", fmt="%6f") #enrgistrés avec 6 decimals après la virgule
 
-def save_mult_pqt(Lx, My, Path, Repo, File_name):
+def save_mult_pqt(Lx, My, L_Ts,Path, Repo, File_name):
     os.makedirs(os.path.join(Path,Repo), exist_ok = True)
     File_Path = os.path.join(Path,Repo,File_name)
     Data = {"Lx" : Lx}
     for i, My_i in enumerate(My) : 
         Data[f"My{i}"] = My_i 
-    
+    Data["L_Ts"] = L_Ts
     df =  pd.DataFrame(Data)
 
     if not File_Path.endswith(".parquet"):
