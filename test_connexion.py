@@ -35,8 +35,9 @@ def close(scope,rm):
             rm.close()
     print("closed : " + str(scope))
 
-rm = open_rm()
-try :
-    scope = scope_init(rm)
-finally :
-    close(scope,rm)
+if __name__ == "__main__" :
+    rm = open_rm()
+    try :
+        scope = scope_init(rm)
+    finally :
+        close(scope,rm)
