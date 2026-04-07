@@ -14,7 +14,7 @@ from datetime import datetime
 # === VAR ===
 On_channels=[1,2,3,4]
 Acq_time_range=25e-5
-Acq_Y_range=1
+Acq_Y_range=10
 Acq_sample_rate= None
 Trig_channel=1
 Trig_level=0
@@ -35,8 +35,8 @@ X_min = None
 X_max = None
 
 # = DATA =
-Data_Repo = "data"
-Data_name = "GSEM_run1.parquet"
+Data_Repo = "data_TR26_0011_run2"
+Data_name = "TR26_0011_run2.parquet"
 
 # === VAR ===
 
