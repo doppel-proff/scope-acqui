@@ -4,17 +4,19 @@ import time
 import numpy as np
 import polars as pl
 
+import config as cf
+
 Path = os.getcwd()
-Data_repo = os.path.join(Path, "data")
+Data_repo = cf.Data_repo
 os.makedirs(Data_repo, exist_ok=True)
-Data_file = "meas"
+Data_file = cf.Data_file
 
-Run_Dur = 60
+Run_Dur = cf.Run_Dur
 
-On_channels = [1,2,3,4]
-Trig_chanel = 1
-Rec_channels = [2,3,4]
-Rec_channels_sca = [10,1,1]
+On_channels = cf.On_Channels
+Trig_chanel = cf.Trig_channel
+Rec_channels = cf.Rec_channels
+Rec_channels_sca = cf.Rec_channels_sca
 
 time_start = time.time()
 
