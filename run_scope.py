@@ -4,7 +4,7 @@ import time
 import numpy as np
 import polars as pl
 
-import cofing as cf
+import config as cf
 
 Path = os.getcwd()
 Data_repo = cf.Data_repo
@@ -49,7 +49,7 @@ def meta_data_dict (meta_data : str) -> dict :
 
 Chans = [1,2,3,4]
 
-if __name__ == "__main__":
+def run ():
     rm = open_rm()
     try :
         instr = scope_init(rm)
@@ -186,14 +186,26 @@ if __name__ == "__main__":
             counter += 1
             time.sleep(20)
         print("\n --- Run ended --- \n")
-
-#    except Exception as err :
-#        print(err)
-#        time.sleep(5)
-        
     finally:
         if scope is not None :
             scope.clear()
             scope.close()
         if rm is not None:
             rm.close()
+
+N_err = 0
+err_row = []
+err_cols = ["nb err", "date and time", "error message"]
+if __name__ == "__main__":
+        try : 
+            run()
+        except Exception as err :
+            N_err  += 1
+            print(f"Nb error : {N_err}")
+            err_row.append([N_err, time.strftime("%Y-%m-%d %H-%M-%S",time.localtime()), err])
+            df_error = pl.DataFrame(err_row, schema=err_cols)
+            err_log_repo = os.path.join(Path, "error_log")
+            os.makedirs(err_log_repo, exist_ok=True) 
+            error_log_file = os.path.join(err_log_repo,f"error_log{N_err}.csv")
+            df_error.write_csv(error_log_file)
+            time.sleep(5)
