@@ -175,7 +175,7 @@ def run ():
 
             df = df.with_columns(pl.col("LT").str.strptime(pl.Datetime, "%Y-%m-%d %H-%M-%S"))
 
-            print(df.tail(10))
+            print(df.tail(3))
 
             data_file_name = f"{Data_file}_{counter}_{formatted_time}"+".parquet"
             data_file_path = os.path.join(Data_repo,data_file_name)
