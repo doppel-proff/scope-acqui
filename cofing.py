@@ -4,7 +4,7 @@ Path = os.getcwd()
 Data_repo = os.path.join(Path, "data")
 Data_file = "meas"
 
-Run_Dur = 60
+Run_Dur = 60*24*14 
 
 On_channels = [1,2,3,4]
 Trig_channel = 1

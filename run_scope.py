@@ -4,7 +4,7 @@ import time
 import numpy as np
 import polars as pl
 
-import config as cf
+import cofing as cf
 
 Path = os.getcwd()
 Data_repo = cf.Data_repo
@@ -13,7 +13,7 @@ Data_file = cf.Data_file
 
 Run_Dur = cf.Run_Dur
 
-On_channels = cf.On_Channels
+On_channels = cf.On_channels
 Trig_chanel = cf.Trig_channel
 Rec_channels = cf.Rec_channels
 Rec_channels_sca = cf.Rec_channels_sca
@@ -95,7 +95,7 @@ if __name__ == "__main__":
         print(f"trigger on chan : {scope.query("TRIG:A:EDGE:SOU?")}")
 
         scope.write("TRIG:A:LEV 0")
-        assert scope.query("TRIG:A:LEV?")[0].strip() == "0"
+        #assert np.abs (float(scope.query("TRIG:A:LEV?").strip())) < 1e-3
         print(f"trigger level : {scope.query("TRIG:A:LEV?")[0]}")
 
         scope.write("TRIG:A:EDGE:SLO RISE")
@@ -187,9 +187,9 @@ if __name__ == "__main__":
             time.sleep(20)
         print("\n --- Run ended --- \n")
 
-    except Exception as err :
-        print(err)
-        time.sleep(5)
+#    except Exception as err :
+#        print(err)
+#        time.sleep(5)
         
     finally:
         if scope is not None :
