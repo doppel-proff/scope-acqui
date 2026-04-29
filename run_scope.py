@@ -202,7 +202,7 @@ if __name__ == "__main__":
         except Exception as err :
             N_err  += 1
             print(f"Nb error : {N_err}")
-            err_row.append([N_err, time.strftime("%Y-%m-%d %H-%M-%S",time.localtime()), err])
+            err_row.append([str(N_err), str(time.strftime("%Y-%m-%d %H-%M-%S",time.localtime())), str(err)])
             df_error = pl.DataFrame(err_row, schema=err_cols)
             err_log_repo = os.path.join(Path, "error_log")
             os.makedirs(err_log_repo, exist_ok=True) 
