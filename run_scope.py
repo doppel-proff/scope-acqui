@@ -197,6 +197,7 @@ N_err = 0
 err_row = []
 err_cols = ["nb err", "date and time", "error message"]
 if __name__ == "__main__":
+    while True :
         try : 
             run()
         except Exception as err :
@@ -206,6 +207,6 @@ if __name__ == "__main__":
             df_error = pl.DataFrame(err_row, schema=err_cols)
             err_log_repo = os.path.join(Path, "error_log")
             os.makedirs(err_log_repo, exist_ok=True) 
-            error_log_file = os.path.join(err_log_repo,f"error_log{N_err}.csv")
+            error_log_file = os.path.join(err_log_repo,f"error_log.csv")
             df_error.write_csv(error_log_file)
             time.sleep(5)
